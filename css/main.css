@@ -1,0 +1,216 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Roboto", sans-serif;
+}
+
+body {
+  background-color: #fae3e1;
+}
+
+main {
+  margin: auto;
+  max-width: 90vw;
+  width: 640px;
+  margin-bottom: 75px;
+}
+
+form {
+  /* display: flex; */
+  /* flex-direction: column; */
+  /* justify-content: center; */
+  /* align-items: center; */
+}
+
+.red_star {
+  color: #ff0000;
+}
+
+.JH79cc {
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  height: 10px;
+  left: -1px;
+  position: absolute;
+  top: -1px;
+  width: calc(100% + 2px);
+  background-color: rgb(219, 68, 55);
+  color: rgba(255, 255, 255, 1);
+}
+
+.header {
+  margin-top: 12px;
+  background-color: #fff;
+  border: 1px solid #dadce0;
+  border-radius: 8px;
+  margin-bottom: 12px;
+  padding: 24px;
+  padding-top: 24px;
+  padding-bottom: 24px;
+  position: relative;
+}
+
+.list {
+  transition: background-color 200ms cubic-bezier(0, 0, 0.2, 1);
+  background-color: #fff;
+  border: 1px solid #dadce0;
+  border-top-color: rgb(218, 220, 224);
+  border-right-color: rgb(218, 220, 224);
+  border-bottom-color: rgb(218, 220, 224);
+  border-left-color: rgb(218, 220, 224);
+  border-radius: 8px;
+  margin-bottom: 12px;
+  padding: 24px;
+  page-break-inside: avoid;
+  word-wrap: break-word;
+  background-color: #fff;
+  border-color: #d93025;
+}
+
+.details_feilds {
+  transition: background-color 200ms cubic-bezier(0, 0, 0.2, 1);
+  background-color: #fff;
+  border: 1px solid #dadce0;
+  border-top-color: rgb(218, 220, 224);
+  border-right-color: rgb(218, 220, 224);
+  border-bottom-color: rgb(218, 220, 224);
+  border-left-color: rgb(218, 220, 224);
+  border-radius: 8px;
+  margin-bottom: 12px;
+  padding: 24px;
+  page-break-inside: avoid;
+  word-wrap: break-word;
+  background-color: #fff;
+  border-color: #d93025;
+}
+
+.details_feilds .details_header,
+.email_feild .details_header {
+  font-weight: 500;
+  margin-bottom: 16px;
+}
+
+.family_planing_img {
+  background-color: #fff;
+  border: 1px solid #dadce0;
+  border-radius: 8px;
+  margin-bottom: 12px;
+  padding: 24px;
+  margin-top: 0;
+  page-break-inside: avoid;
+  transition: background-color 200ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.family_planing_img img {
+  border: none;
+  max-width: 100%;
+  padding-top: 10px;
+}
+
+input {
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: 0.2px;
+  line-height: 20px;
+  color: #202124;
+  padding: 10px;
+  margin-top: 24px;
+}
+
+.input_no_border {
+  -moz-box-flex: 1;
+  box-flex: 1;
+  flex-grow: 1;
+  flex-shrink: 1;
+  background-color: transparent;
+  border: none;
+  border-bottom: 1px solid #b1adad;
+  display: block;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: normal;
+  height: 24px;
+  line-height: 24px;
+  margin: 0;
+  min-width: 0%;
+  outline: none;
+  padding: 0;
+  z-index: 0;
+}
+
+#registration_details,
+#clinical_data_ncs {
+  transition: background-color 200ms cubic-bezier(0, 0, 0.2, 1);
+  background-color: #fff;
+  border: 1px solid #dadce0;
+  border-top-color: rgb(218, 220, 224);
+  border-right-color: rgb(218, 220, 224);
+  border-bottom-color: rgb(218, 220, 224);
+  border-left-color: rgb(218, 220, 224);
+  border-radius: 8px;
+  margin-bottom: 12px;
+  padding: 24px;
+  page-break-inside: avoid;
+  word-wrap: break-word;
+  background-color: #fff;
+  border-color: #fff;
+}
+
+.heading {
+  margin-bottom: 24px;
+}
+
+select {
+  /* height: auto; */
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: 0.2px;
+  padding-bottom: 8px;
+  padding-top: 8px;
+  padding-left: 20px;
+  background: #fff;
+  border: 0.5px solid gray;
+  border-radius: 4px;
+  height: 48px;
+  width: 178px;
+  cursor: pointer;
+  /* text-align: center; */
+}
+
+input[date] {
+  cursor: pointer;
+}
+
+#remarks {
+  flex-grow: 1;
+  flex-shrink: 1;
+  background-color: transparent;
+  border: none;
+  border-bottom: 1px solid;
+  outline: none;
+  width: 498px;
+  height: 30px;
+  resize: none;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  z-index: 0;
+  overflow-y: visible;
+  overflow-x: hidden;
+}
+
+.submitBtn button {
+  width: 95px;
+  height: 38px;
+  border: none;
+  border-radius: 4px;
+  color: #fff;
+  font-weight: 500;
+  background-color: #d93025;
+  font-weight: 500;
+  letter-spacing: 0.25px;
+  line-height: 36px;
+  cursor: pointer;
+}
