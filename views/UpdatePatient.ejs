@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Add New Patient</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+  </head>
+  <body>
+    <div class="container-fluid m-2 p-5"> 
+    <form action="/change" method="post">
+    <div class="row">
+        <!-- 2 column grid layout with text inputs for the first and last names -->
+        <h1 style="box-shadow: [horizontal offset] [vertical offset] [blur radius] [optional spread radius] [color];">Add New Patient Details</h1>
+        <div class="col-6">
+          
+            <div class="form-outline m-4">
+              <input type="text" name="patientid" value="<%= Details.id %>"  hidden>
+                <label class="form-label" for="form3Example1">patients Name</label>
+                <input type="text" id="form3Example1" class="form-control" placeholder="Patients Name" name="pname" value="<%= Details.Name %>" required />              
+              </div>
+              <div class="form-outline m-4">
+                <label class="form-label" for="form3Example1">Gender</label>
+                <select class="form-select" aria-label="Default select example" name="gender" required>
+                    <option value="<%= Details.Gender %>"><%= Details.Gender %></option>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                    <option value="Prefer not to say">Prefer not to say</option>
+                    <option value="Other">Other</option>
+                  </select>
+            </div>
+         
+              <div class="form-outline m-4">
+             <label class="form-label" for="date">Dob</label>
+                <input type="date" id="date" class="form-control" placeholder="Dob" name="date" value="<%= Details.Dob %>" required/>
+              </div>
+              <div class="form-outline m-4">
+                <label class="form-label" for="form3Example1">Age</label>
+                    <input type="Number" id="form3Example1" class="form-control " placeholder="Age" name="age" value="<%= Details.Age %>" />
+                   
+              </div>
+              <div class="form-outline m-4">
+                <label class="form-label" for="NHIS">NHIS Number</label>
+                <input type="text" id="NHIS" class="form-control" placeholder="NHIS Number" name="NHIS" value="<%= Details.NHIS %>" required/>                
+              </div>            
+              <div class="form-outline m-4">
+                <label class="form-label" for="Reg No.">Registration Number</label>
+                <input type="text" id="Reg No." class="form-control" placeholder="Registration Number" name="RegNo" value="<%= Details.RegNo %>" required/>             
+              </div>
+        </div>
+        <div class="col-6">
+            <div class="form-outline m-4">
+                <label class="form-label" for="NHIS">Region</label>
+                <select class="form-select" aria-label="Default select example" name="Region" required>  
+                  <option value="<%= Details.Region %>"><%= Details.Region %></option>
+                  <option value="Ashanti">Ashanti</option>
+                  <option value="Ahafo">Ahafo</option>
+                  <option value="Bono">Bono</option>
+                  <option value="Bono East">Bono East</option>
+                  <option value="Central">Central</option>
+                  <option value="Eastern">Eastern</option>
+                  <option value="Greater Accra">Greater Accra</option>
+                  <option value="Northern">Northern</option>
+                  <option value="North-East">North-East</option>
+                  <option value="Oti">Oti</option>
+                  <option value="Savannah">Savannah</option>
+                  <option value="Upper East">Upper East</option>
+                  <option value="Upper West">Upper West</option>
+                  <option value="Volta">Volta</option>
+                  <option value="Western">Western</option>
+                  <option value="Western North">Western North</option>
+                </select>                               
+              </div>            
+              <div class="form-outline m-4">
+                <label class="form-label" for="Reg No.">District</label>
+                <input type="text" id="Reg No." class="form-control" placeholder="District" name="District" value="<%= Details.District %>" required/>             
+              </div>
+              <div class="form-outline m-4">
+                <label class="form-label" for="Reg No.">Facility</label>
+                <input type="text" id="NHIS" class="form-control" placeholder="Facility Registered" name="Facility" value="<%= Details.Facility %>" required/> 
+              </div>
+              <div class="form-outline m-4">
+                <label class="form-label" for="Tel">Tel(+233)</label>
+                <input type="Number" id="NHIS" class="form-control" placeholder="+233" name="Tel" value="<%= Details.Tel %>" required />                
+              </div>
+              <div class="form-outline m-4">
+                <label class="form-label" for="Address">Address(Current Location)</label>
+                <input type="Number" id="Address" class="form-control" placeholder="+233" name="address" value="<%= Details.address %>" required />                
+              </div>
+              <div class="form-outline m-4 ">
+              <button type="submit" class="btn btn-primary btn-block mb-4 w-100 bg-warning border-0" style="margin-top: 35px;box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);">Update</button>
+            </div>
+        </div>
+    </div>     
+        
+    </div>
+      </form>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+  </body>
+</html>

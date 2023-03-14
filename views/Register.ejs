@@ -5,12 +5,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Family Planing Data Tracker</title>
-    <link rel="stylesheet" href="./css/main.css" />
-    <script src="./js/main.js" defer></script>
+    <link rel="stylesheet" href="./public/css/main.css" />
+    <script src="./public/js/main.js" defer></script>
   </head>
   <body>
     <main>
-      <form action="" method="post">
+      <form action="/save" method="post">
         <section>
           <div class="header">
             <div class="JH79cc RVEQke b33AEc"></div>
@@ -70,6 +70,7 @@
               class="input_no_border"
               placeholder="Your answer"
               id="nhis_number"
+              name="nhis"
             />
           </div>
           <div class="details_feilds">
@@ -81,6 +82,7 @@
               class="input_no_border"
               placeholder="Your answer"
               id="client_number"
+              name="clientnumber"
             />
           </div>
           <div class="details_feilds">
@@ -91,41 +93,44 @@
               type="text"
               class="input_no_border"
               placeholder="Your answer"
+              name="pdata"
             />
           </div>
           <div class="details_feilds">
             <div class="details_header">AGE</div>
             <input
-              type="text"
+              type="number"
               class="input_no_border"
               required
               placeholder="Your answer"
+              name="age"
             />
           </div>
-          <div class="details_feilds">
+          <div class="details_feilds" id="details_feilds">
             <div class="details_header">
               SEX <span class="red_star">*</span>
             </div>
             <div class="checkbox_selection">
-              <input type="radio" name="sex" required />
+              <input type="radio" name="sex" id="sex" class="sex" value="Male" required />
               <label for="sex">Male</label>
             </div>
             <div class="checkbox_selection">
-              <input type="radio" name="sex" required />
+              <input type="radio" name="sex" class="sex" value="Female" required />
               <label for="sex">Female</label>
             </div>
             <div class="checkbox_selection">
-              <input type="radio" name="sex" required />
+              <input type="radio" name="sex"  class="sex" required value="Prefer not to say" />
               <label for="sex">Prefer not to say</label>
             </div>
             <div class="checkbox_selection">
-              <input type="radio" name="sex" required />
+              <input type="radio" name="sex" class="sex" value="other" required />
               <label for="sex">Other</label>
             </div>
+            <input type="text" id="Gender" name="Gender" hidden/>
           </div>
           <div class="details_feilds">
             <div class="details_header">Date of birth</div>
-            <input type="date" />
+            <input type="date" name="dob" />
           </div>
         </section>
         <section id="clinical_data_ncs">
@@ -150,6 +155,7 @@
               type="text"
               class="input_no_border"
               placeholder="Your answer"
+              name="blood"
             />
           </div>
           <div class="details_feilds">
@@ -160,40 +166,42 @@
               type="text"
               class="input_no_border"
               placeholder="Your answer"
+              name="weight"
             />
           </div>
-          <div class="details_feilds">
+          <div class="details_feilds" id="idcommo">
             <div class="details_header">Type Of FP Service</div>
             <div class="FPS">
-              <input type="checkbox" name="1st ever(new acceptors)" />
+              <input type="checkbox" name="1st ever(new acceptors)" class="fp" value="1st ever(new acceptors)"/>
               <label for="1st ever(new acceptors)"
                 >1st Ever(New Acceptors</label
               >
             </div>
             <div class="FPS">
-              <input type="checkbox" name="CONTINUE COMMODITY GIVEN" />
+              <input type="checkbox" name="CONTINUE COMMODITY GIVEN" class="fp" value="CONTINUE COMMODITY GIVEN"/>
               <label for="CONTINUE COMMODITY GIVEN"
                 >CONTINUE COMMODITY GIVEN</label
               >
             </div>
             <div class="FPS">
-              <input type="checkbox" name="VISIT NO COMMODITY GIVEN" />
+              <input type="checkbox" name="VISIT NO COMMODITY GIVEN" class="fp" value="VISIT NO COMMODITY GIVEN" />
               <label for="VISIT NO COMMODITY GIVEN"
                 >VISIT NO COMMODITY GIVEN</label
               >
             </div>
             <div class="FPS">
-              <input type="checkbox" name="VISIT COMMODITY GIVEN" />
+              <input type="checkbox" name="VISIT COMMODITY GIVEN" class="fp" value="VISIT COMMODITY GIVEN" />
               <label for="VISIT COMMODITY GIVEN">VISIT COMMODITY GIVEN</label>
             </div>
             <div class="FPS">
-              <input type="checkbox" name="COUNSELLING ONLY" />
+              <input type="checkbox" name="COUNSELLING ONLY" class="fp" value="COUNSELLING ONLY" />
               <label for="COUNSELLING ONLY">COUNSELLING ONLY</label>
             </div>
             <div class="FPS">
-              <input type="checkbox" name="Option 6" />
+              <input type="checkbox" name="Option 6" class="fp" value="Option 6" />
               <label for="Option 6">Option 6</label>
             </div>
+            <input type="text" id="serve" name="serve" hidden />
           </div>
           <div class="details_feilds">
             <div class="details_header">
@@ -221,6 +229,7 @@
               cols="30"
               rows="10"
               placeholder="Your answer"
+              name="remarks"
             ></textarea>
           </div>
 
@@ -228,13 +237,14 @@
             <div class="details_header">
               NEXT VISIT DATE<span class="red_star">*</span>
             </div>
-            <input type="date" name="Next Visit Date" id="nVdate" />
+            <input type="date" name="visit" id="nVdate" />
           </div>
         </section>
         <div class="submitBtn">
-          <button type="submit">Submit</button>
+          <button type="submit"  id="submit">Submit</button>
         </div>
       </form>
     </main>
+    <script src="public/js/checkbox.js" type="module"></script>
   </body>
 </html>

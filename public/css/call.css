@@ -1,0 +1,103 @@
+@import "chart.css";
+*{
+ margin: 0;
+ padding: 0;
+ box-sizing: border-box;
+ font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+.main-page{
+    width: 100%;
+    height: 100%;
+}
+.conference{
+    width: 80rem;
+    height: 50rem;
+    margin: 0 auto;
+    margin-top: 15rem;
+}
+.vc-page{
+    width: 60rem;
+    height: 10rem;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns:1fr 1fr;
+    /* box-shadow: 0 3px 10px rgb(0 0 0 / 0.2); */
+    gap: 5%;
+    margin-top: 20px;
+    
+}
+
+
+.btns{
+width: 100%;
+height: 50%;
+font-size: 3rem;
+background-color:red;
+}
+h1{
+font-size: 3rem;
+font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.search{
+    width: 100%;
+    height: 50%;
+    font-size: 1rem;
+
+    }
+
+
+
+#sbtn{
+    background:#273248;
+    color: white;
+    border:none;
+    border-radius: 5px;
+    
+    }
+        #logbtn{
+            background-color:rgb(96, 60, 20);
+            color: white;
+            border:none;
+            border-radius: 5px;
+      
+            }
+            #createbtn{
+                background-color:rgb(212, 91,18);
+                color: white;
+                border-radius: 5px;
+                border:none;
+                }
+                #joinbtn{
+                    background-color:rgb(243, 188,46);
+                    color: white;
+                    border:none;
+                    border-radius: 5px;
+
+                    }
+    .header{
+    text-align: center;
+    margin-top: 30px;
+    }
+
+    .server{
+display: flex;
+flex-direction: column;
+    }
+
+    #myvideos{
+       display: grid;
+       grid-template-columns: repeat(auto-fill, 300px); 
+       grid-auto-rows: 300px;
+       border: 2px solid red;
+    }
+
+    video{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    }
+
+    #container-video{
+       max-width: fit-content;
+    }

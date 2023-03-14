@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Family Planing Data Tracker</title>
+    <link rel="stylesheet" href="./public/css/main.css" />
+    <script src="./public/js/main.js" defer></script>
+  </head>
+  <body>
+    <main>
+      <form action="/update" method="post">
+        
+        <section>
+          <div class="header">
+            <div class="JH79cc RVEQke b33AEc"></div>
+            <div class="header_title">
+              <div class="ahS2Le">
+                <h1>FAMILY PLANNING&nbsp;DATA -TRACKER</h1>
+              </div>
+            </div>
+            <div class="cBGGJ OIC90c" dir="auto">
+              <b
+                ><i
+                  >FPD - Tracker is designed to assess client's family planning
+                  records accurately per services rendered.</i
+                >
+              </b>
+            </div>
+          </div>
+          <div class="list">
+            <input type="text" name="userid" id="userid" value="<%= Data.id %>" hidden>
+            <div class="email_container">
+              <div class="email_feild">
+                <div class="details_header">
+                  Email <span class="red_star">*</span>
+                </div>
+                <input
+                  type="email"
+                  class="input_no_border"
+                  name="email"
+                  id="email"
+                  required
+                  placeholder="Your email"
+                  value="<%= Data.email %>"
+                />
+              </div>
+              <div class="errMsg">
+                <span></span>
+                <span class="msg">This is a required question</span>
+              </div>
+            </div>
+          </div>
+          <div class="family_planing_img">
+            <img
+              src="https://lh3.googleusercontent.com/S-KwA9UUtIx0-IUO-KxJvH8l1L20A_oRs0jl03ukYaDfVPkGRU4LjnZ2s-RHuob-RKXdFhxplaXdZsFN_1xBosZG3pSaSYt7Ywl1e_GC1VXuiz8W39WLp2i5tmd3TofUUQ=w877"
+              class="HxhGpf"
+              style="width: 877px"
+              title=""
+              alt="family_planing_img"
+            />
+          </div>
+        </section>
+        <section id="registration_details">
+          <div class="heading">
+            <h2>CLIENT REGISTRATION DETAILS</h2>
+          </div>
+          <div class="details_feilds">
+            <div class="details_header">NHIS NUMBER</div>
+            <input
+              type="text"
+              class="input_no_border"
+              placeholder="Your answer"
+              id="nhis_number"
+              name="nhis"
+              value="<%= Data.nhis %>"
+            />
+          </div>
+          <div class="details_feilds">
+            <div class="details_header">
+              Clients Registration Number <span class="red_star">*</span>
+            </div>
+            <input
+              type="text"
+              class="input_no_border"
+              placeholder="Your answer"
+              id="client_number"
+              name="clientnumber"
+              value="<%= Data.clientnumber %>"
+            />
+          </div>
+          <div class="details_feilds">
+            <div class="details_header">
+              PATIENTS DATA <span class="red_star">*</span>
+            </div>
+            <input
+              type="text"
+              class="input_no_border"
+              placeholder="Your answer"
+              name="pdata"
+              value="<%= Data.pdata %>"
+            />
+          </div>
+          <div class="details_feilds">
+            <div class="details_header">AGE</div>
+            <input
+              type="number"
+              class="input_no_border"
+              required
+              placeholder="Your answer"
+              name="age"
+              value="<%= Data.age %>"
+            />
+          </div>
+          <div class="details_feilds" id="details_feilds">
+            <div class="details_header">
+              SEX <span class="red_star">*</span>
+            </div>
+            <div class="checkbox_selection">
+              <input type="radio"  id="sex" class="sex" value="Male" required />
+              <label for="sex">Male</label>
+            </div>
+            <div class="checkbox_selection">
+              <input type="radio"  class="sex" value="Female" required />
+              <label for="sex">Female</label>
+            </div>
+            <div class="checkbox_selection">
+              <input type="radio"   class="sex" required value="Prefer not to say" />
+              <label for="sex">Prefer not to say</label>
+            </div>
+            <div class="checkbox_selection">
+              <input type="radio"  class="sex" value="other" required />
+              <label for="sex">Other</label>
+            </div>
+            <input type="text" id="Gender" name="Gender"  style="border: none;border-bottom: 1px solid black;font-size: larger;font-weight: bold;" value="<%= Data.Gender %>"/>
+          </div>
+          <div class="details_feilds">
+            <div class="details_header">Date of birth</div>
+            <input type="date" name="dob"  value="<%= Data.dob %>"/>
+          </div>
+        </section>
+        <section id="clinical_data_ncs">
+          <div class="heading">
+            <h2>Clinical Data</h2>
+            <b> <i> Treat this part as very necessary to client </i></b>
+          </div>
+          <div class="details_feilds">
+            <div class="details_header">
+              LAB TEST 1 <span class="red_star">*</span>
+            </div>
+            <select name="lab_test" id="lab_test">
+              <option value="None" selected disabled><%= Data.lab_test %></option>
+              <option value="POSTIVE">POSITIVE</option>
+              <option value="NEGATIVE">NEGATIVE</option>
+              <option value="RESIST PT">RESIST PT</option>
+            </select>
+          </div>
+          <div class="details_feilds">
+            <div class="details_header">Blood Pressure(mmHg)</div>
+            <input
+              type="text"
+              class="input_no_border"
+              placeholder="Your answer"
+              name="blood"
+              value="<%= Data.blood %>"
+            />
+          </div>
+          <div class="details_feilds">
+            <div class="details_header">
+              WEIGHT(KG) <span class="red_star">*</span>
+            </div>
+            <input
+              type="text"
+              class="input_no_border"
+              placeholder="Your answer"
+              name="weight"
+              value="<%= Data.weight %>"
+            />
+          </div>
+          <div class="details_feilds" id="idcommo">
+            <div class="details_header">Type Of FP Service</div>
+            <div class="FPS">
+              <input type="checkbox" name="1st ever(new acceptors)" class="fp" value="1st ever(new acceptors)"/>
+              <label for="1st ever(new acceptors)"
+                >1st Ever(New Acceptors</label
+              >
+            </div>
+            <div class="FPS">
+              <input type="checkbox" name="CONTINUE COMMODITY GIVEN" class="fp" value="CONTINUE COMMODITY GIVEN"/>
+              <label for="CONTINUE COMMODITY GIVEN"
+                >CONTINUE COMMODITY GIVEN</label
+              >
+            </div>
+            <div class="FPS">
+              <input type="checkbox" name="VISIT NO COMMODITY GIVEN" class="fp" value="VISIT NO COMMODITY GIVEN" />
+              <label for="VISIT NO COMMODITY GIVEN"
+                >VISIT NO COMMODITY GIVEN</label
+              >
+            </div>
+            <div class="FPS">
+              <input type="checkbox" name="VISIT COMMODITY GIVEN" class="fp" value="VISIT COMMODITY GIVEN" />
+              <label for="VISIT COMMODITY GIVEN">VISIT COMMODITY GIVEN</label>
+            </div>
+            <div class="FPS">
+              <input type="checkbox" name="COUNSELLING ONLY" class="fp" value="COUNSELLING ONLY" />
+              <label for="COUNSELLING ONLY">COUNSELLING ONLY</label>
+            </div>
+            <div class="FPS">
+              <input type="checkbox" name="Option 6" class="fp" value="Option 6" />
+              <label for="Option 6">Option 6</label>
+            </div>
+            <input type="text" id="serve" name="serve" style="border: none;border-bottom: 1px solid black;font-size: larger;font-weight: bold;"  value="<%= Data.serve %>" />
+          </div>
+          <div class="details_feilds">
+            <div class="details_header">
+              CHOICE OF COMMODITY <span class="red_star">*</span>
+            </div>
+            <select name="commodity" id="commodity">
+              <option value="None" selected disabled><%= Data.commodity %></option>
+              <option value="DEPO PROVERA">DEPO PROVERA</option>
+              <option value="IMPLANON NXT">IMPLANON NXT</option>
+              <option value="JADELLE">JADELLE</option>
+              <option value="MICROGYNON">MICROGYNON</option>
+              <option value="MICROLUT">MICROLUT</option>
+              <option value="CONDOMS">CONDOMS</option>
+              <option value="IUCD">IUCD</option>
+              <option value="NORYGYNON">NORYGYNON</option>
+            </select>
+          </div>
+          <div class="details_feilds">
+            <div class="details_header">
+              PATIENT/CLIENT'S COMPLAINTS/REMARKS<span class="red_star">*</span>
+            </div>
+            <textarea
+            style="font-size: large;font-weight: bold;"
+              name="remarks"
+              id="remarks"
+              cols="30"
+              rows="10"
+              placeholder="Your answer"
+              name="remarks"
+              
+            ><%= Data.remarks %>"</textarea>
+          </div>
+
+          <div class="details_feilds">
+            <div class="details_header">
+              NEXT VISIT DATE<span class="red_star">*</span>
+            </div>
+            <input type="date" name="visit" id="nVdate"  value="<%= Data.visit %>"/>
+          </div>
+        </section>
+        <div class="submitBtn">
+          <button type="submit"  id="submit">Update</button>
+        </div>
+      </form>
+    </main>
+    <script src="public/js/SelectItem.js" type="module"></script>
+  </body>
+</html>
