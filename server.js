@@ -21,6 +21,11 @@ stores.get('/', (req,res)=>{
 
 })
 
+stores.get('/signUp', (req,res)=>{
+    res.render('signUp')
+
+})
+
 stores.get('/Register', (req,res)=>{
   res.render('Register')
 
