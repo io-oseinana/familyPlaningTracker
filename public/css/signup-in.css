@@ -3,7 +3,7 @@
   }
   
   .bg-image {
-    background-image: url("https://source.unsplash.com/WEQbe2jBg40/600x1200");
+    background-image: url("/public/img/pexels-tima-miroshnichenko-5452201.jpg");
     background-size: cover;
     background-position: center;
   }
@@ -25,11 +25,12 @@
   
   
   #ex1 {
-      margin-top: -27rem; 
+      margin-top: -30rem; 
   }
   
   #register {
       position: absolute;
-      top: 9rem;
+      top: 6rem;
+      left: 58%;
       width: 629px;
   }

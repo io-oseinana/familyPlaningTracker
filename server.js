@@ -87,6 +87,22 @@ stores.get("/Send", (req, res) => {
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+// SAVING LOGIN AND SIGNUP DATA
+
+stores.post('/Account',(req,res)=>{    
+  const {email,Tel,address,Facility,District,Region, floatingPassword, Accessibility}=req.body;
+  const changeDob=moment(date).format('YYYY-MM-DD')
+  dbconnect.query(Account,{Email:email,Facility:Facility,Tel:Tel,address:address,Region:Region,District:District, Accessibility: Accessibility,Password:floatingPassword},(err,data)=>{
+    if(err){
+      console.log(err);
+      res.sendStatus(500);
+      return;
+    }else{
+      res.redirect('/signUp')
+    }
+  })
+})
+
 //SAVE PATIENT DETAILS...................................................................................
 stores.post("/patient", (req, res) => {
   const {
