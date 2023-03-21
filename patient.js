@@ -22,7 +22,7 @@ stores.get('/', (req,res)=>{
 })
 
 stores.get('/Register', (req,res)=>{
-  res.render('Register')
+  res.render('FamilyPlanning')
 
 })
 

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="/public/css/call.css" rel="stylesheet">
+    <!-- <script>
+       var socket = io();
+       socket.on('message', function(data){document.write(data)});
+    </script> -->
+    <style>
+        
+    </style>
+</head>
+<body>
+    <div class="main-page">
+        <form action="/Sendsms" method="post">
+ <section class="conference">
+    <div class="header">
+        <h1>SEND SMS TO CLIENT</h1>
+    </div>
+<section class="vc-page">
+    <div class="signup">
+    <input type="text" placeholder="Enter Client number" class="search" name="Contacts">
+    </div>
+    <div class="signup">
+        <button type="submit" class="btns" id="sbtn">SEND</button>
+    </div>
+</section>
+<section style="margin-left: 10rem;">
+    <textarea rows="15" cols="153" name="Messages">
+        THIS IS DOMINASE SDA HOSPITAL,PLEASE YOU ARE REMINDED TO GO FOR YOUR NEXT VISIT
+      </textarea>
+</section>
+</section>
+</form>
+    </div>
+    <!-- <script src="/socket.io/socket.io.js"></script>  
+    <script src="public/script.js" ></script> -->
+</body>
+</html>

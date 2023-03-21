@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Add New Patient</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+  </head>
+  <body>
+    <div class="container-fluid m-2 p-5"> 
+       <!-- 2 column grid layout with text inputs for the first and last names -->
+       <h1 style="text-align: center;margin-top: -10px;margin-bottom: 30px;">View Details & Make Changes</h1>
+      <div class="row">       
+        <div class="col-4">
+            <form class="d-flex" role="search" action="/vp" method="post">
+                <input class="form-control me-2" type="search" placeholder="Search by Client Name" aria-label="Search" name="NameSearch" style="width: 30rem;">
+                <button class="btn btn-outline-success" type="submit" style="font-family: Verdana, Geneva, Tahoma, sans-serif;" >Search</button>
+              </form>
+        </div>
+        <div class="col-4">
+            <form class="d-flex" role="search" action="/pview" method="post">
+                <input class="form-control me-2" type="search" placeholder="Search by Mobile No." aria-label="Search" name="Mobilesearch" style="width: 30rem;">
+                <button class="btn btn-outline-success" type="submit" >Search</button>
+              </form>
+        </div>
+        <div class="col-4">
+            <form class="d-flex" role="search" action="/regno" method="post">
+                <input class="form-control me-2" type="search" placeholder="Search by Client Registration No" aria-label="Search" name="Regsearch" style="width: 30rem;">
+                <button class="btn btn-outline-success" type="submit" >Search</button>
+              </form>
+        </div>
+    </div>
+    <form action="/update" method="post">
+    <div class="row">
+       
+        <div class="col-6">
+          
+            <div class="form-outline m-4">
+              <input type="text" id="form3Example1" class="form-control" placeholder="patients id" name="userid" value="<%= Data.id %>" hidden/> 
+                <label class="form-label" for="form3Example1">patients Name</label>
+                <input type="text" id="form3Example1" class="form-control" placeholder="patients Name" name="pdata" value="<%= Data.pdata %>" required />              
+              </div>           
+              <div class="form-outline m-4">
+                <label class="form-label" for="Reg No.">Registration Number</label>
+                <input type="text" id="Reg No." class="form-control" placeholder="Registration Number" name="RegNo" value="<%= Data.RegNo %>" required/>             
+              </div>
+              <div class="form-outline m-4">
+                <label class="form-label" for="Tel">Tel(+233)</label>
+                <input type="Number" id="NHIS" class="form-control" placeholder="+233" name="clientnumber" value="<%= Data.clientnumber %>" required />                
+              </div>
+              <div class="form-outline m-4">
+                <label class="form-label" for="NHIS">Region</label>
+                <select class="form-select" aria-label="Default select example" name="Region" value="<%= Data.Region %>" required>  
+                  <option value="<%= Data.Region %>"><%= Data.Region %></option>
+                  <option value="Ashanti">Ashanti</option>
+                  <option value="Ahafo">Ahafo</option>
+                  <option value="Bono">Bono</option>
+                  <option value="Bono East">Bono East</option>
+                  <option value="Central">Central</option>
+                  <option value="Eastern">Eastern</option>
+                  <option value="Greater Accra">Greater Accra</option>
+                  <option value="Northern">Northern</option>
+                  <option value="North-East">North-East</option>
+                  <option value="Oti">Oti</option>
+                  <option value="Savannah">Savannah</option>
+                  <option value="Upper East">Upper East</option>
+                  <option value="Upper West">Upper West</option>
+                  <option value="Volta">Volta</option>
+                  <option value="Western">Western</option>
+                  <option value="Western North">Western North</option>
+                </select>                               
+              </div> 
+                   
+        <div class="form-outline m-4">
+          <label class="form-label" for="Reg No.">District</label>
+          <input type="text" id="Reg No." class="form-control" placeholder="District" name="District" value="<%= Data.District %>" required/>             
+        </div>
+        <div class="form-outline m-4">
+          <label class="form-label" for="Reg No.">Facility</label>
+          <input type="text" id="NHIS" class="form-control" placeholder="Facility Registered" name="Facility" value="<%= Data.Facility %>" required/> 
+        </div>
+        <div class="form-outline m-4 "> 
+          <label class="form-label" for="date">DATE</label>
+          <input type="date" id="date" class="form-control" placeholder="Dob" name="date"  value="<%= Data.Date %>" required/>
+      </div>
+
+        </div>
+        <div class="col-6">    
+          <div class="form-outline m-4 "> 
+            <label class="form-label" for="Reg No.">LAB TEST 1 *</label>             
+            <select class="form-select" aria-label="Default select example" name="lab_test" value="<%= Data.lab_test %>" required> 
+            <option value="None" value="<%= Data.lab_test %>"><%= Data.lab_test %>"</option>
+            <option value="POSTIVE">POSITIVE</option>
+            <option value="NEGATIVE">NEGATIVE</option>
+            <option value="RESIST PT">RESIST PT</option>
+          </select>
+        </div> 
+        <div class="form-outline m-4">
+          <label class="form-label" for="Reg No.">Blood Pressure(mmHg)</label>
+          <input type="text" id="NHIS" class="form-control" placeholder="Blood Pressure"   name="blood" value="<%= Data.blood %>" required/> 
+        </div>
+        <div class="form-outline m-4">
+          <label class="form-label" for="weight">WEIGHT(KG)</label>
+          <input type="text" id="blood" class="form-control" placeholder="Blood Pressure"   name="weight" value="<%= Data.weight %>" required/> 
+        </div>
+        <div class="form-outline m-4 "> 
+          <label class="form-label" for="weight">Type Of FP Service</label>             
+          <select class="form-select" aria-label="Default select example" name="serve" value="<%= Data.serve %>" required> 
+          <option value="None" value="<%= Data.serve %>"><%= Data.serve %>"</option>
+          <option value="POSTIVE">1st Ever(New Acceptors)</option>
+          <option value="POSTIVE">CONTINUE COMMODITY GIVEN</option>
+          <option value="NEGATIVE">VISIT NO COMMODITY GIVEN</option>
+          <option value="VISIT COMMODITY GIVEN">VISIT COMMODITY GIVEN</option>
+          <option value="POSTIVE">COUNSELLING ONLY</option>
+        </select>
+      </div>
+      <div class="form-outline m-4 "> 
+        <label class="form-label" for="weight">CHOICE OF COMMODITY</label>             
+        <select class="form-select" aria-label="Default select example" name="commodity" value="<%= Data.commodity %>" required> 
+          <option value="None" value="<%= Data.commodity %>"><%= Data.commodity %></option>
+          <option value="DEPO PROVERA">DEPO PROVERA</option>
+          <option value="IMPLANON NXT">IMPLANON NXT</option>
+          <option value="JADELLE">JADELLE</option>
+          <option value="MICROGYNON">MICROGYNON</option>
+          <option value="MICROLUT">MICROLUT</option>
+          <option value="CONDOMS">CONDOMS</option>
+          <option value="IUCD">IUCD</option>
+          <option value="NORYGYNON">NORYGYNON</option>
+      </select>
+    </div>
+    <div class="form-outline m-4 "> 
+      <label class="form-label" for="Reg No.">PATIENT/CLIENT'S COMPLAINTS/REMARKS</label>
+      <input type="text" id="NHIS" class="form-control" placeholder="Blood Pressure"    name="remarks" value="<%= Data.remarks %>" required/> 
+  </div>
+  <div class="form-outline m-4 "> 
+    <label class="form-label" for="date">NEXT VISIT DATE</label>
+    <input type="date" id="date" class="form-control" placeholder="Dob" name="visit" value="<%= Data.visit %>"  required/>
+</div>
+<div class="form-outline m-4 ">
+  <button type="submit" class="btn btn-primary btn-block mb-4 w-100 bg-warning border-0" style="margin-top: 35px;box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);">UPDATE RECORDS</button>
+</div> 
+
+ 
+        </div>
+    </div>     
+        
+    </div>
+      </form>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+  </body>
+</html>

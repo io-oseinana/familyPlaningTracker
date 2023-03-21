@@ -1,130 +1,582 @@
-import  express  from "express";
+import express, { query } from "express";
+import shedule from "node-schedule";
 import bodyParser from "body-parser";
-import { config } from 'dotenv'
-import { dbconnect } from './dbConnect.js'
+import { config } from "dotenv";
+import { dbconnect } from "./dbConnect.js";
 import moment from "moment/moment.js";
+import fetch from "node-fetch";
 //QUERIES ABOUT PATIENTS REGISTRATION FOR FAMILY PLANNING
-import {NewPatient,ViewPatient,DeletePatient,GetPatientDetails,UpdateDetails} from './public/js/queries.js'
+import {
+  NewPatient,
+  ViewPatient,
+  DeletePatient,
+  GetPatientDetails,
+  UpdateDetails,
+  DisplayAll,
+  DisplayAllCount,
+  namesearch,
+  mobilesearch,
+  regsearch,
+  TimeUp,
+  UpdateSmsStatus,
+  FAll,
+  Fmobilesearch,
+  Fregsearch,
+  Fnamesearch,
+} from "./public/js/queries.js";
 //QUERIES ABOUT  CLINICAL DATA COLLECTION FOR FAMILY PLANNING
-import {SaveNewItems, display,Delete,Update,UpdateName,Allupdate} from './public/js/queries.js'
+import {
+  SaveNewItems,
+  display,
+  Delete,
+  Update,
+  UpdateName,
+  Allupdate,
+  SaveSend,
+} from "./public/js/queries.js";
+//SMS ALERT MESSAGE PROPERTIES FROM SenderID.JS FILE
+import { Facility, Message, SenderID, Contact, key} from "./send.js";
+
+config();
+const stores = express();
+const port = process.env.PORT || 8080;
+stores.set("view engine", "ejs");
+stores.use("/public", express.static("public"));
+stores.use(bodyParser.urlencoded({ extended: true }));
+
+// stores.get("/", (req, res) => {
+//   res.render("Dashboard");
+// });
+
+stores.get("/main", (req, res) => {
+   res.render("main");
+});
+
+stores.get("/signup", (req, res) => {
+  res.render("signUp");
+});
+
+stores.get("/Register", (req, res) => {
+  res.render('FamilyPlanning', {Data: '' })
+});
+
+stores.get("/Report", (req, res) => {
+  res.render("Register");
+});
+
+stores.get("/call", (req, res) => {
+  res.render("call");
+});
+
+stores.get("/patient", (req, res) => {
+  res.render("MyPatient");
+});
+
+stores.get("/viewpatient", (req, res) => {
+  res.render("PatientListView");
+});
+
+stores.get("/view", (req, res) => {
+  res.render("UpdatePatient");
+});
+
+stores.get("/Send", (req, res) => {
+  res.render("Send");
+});
 
 
-config()
-const stores=express()
-const port=process.env.PORT || 8080
-stores.set('view engine','ejs')
-stores.use('/public', express.static('public'))
-stores.use(bodyParser.urlencoded({extended:true}))
-
-stores.get('/', (req,res)=>{
-    res.render('Dashboard')
-
-})
-
-stores.get('/signUp', (req,res)=>{
-    res.render('signUp')
-
-})
-
-stores.get('/Register', (req,res)=>{
-  res.render('Register')
-
-})
-
-stores.get('/Report', (req,res)=>{
-  res.render('Register')
-
-})
-
-stores.get('/call', (req,res)=>{
-  res.render('call')
-
-})
-
-stores.get('/patient', (req,res)=>{
-  res.render('MyPatient')
-
-})
-
-stores.get('/viewpatient', (req,res)=>{
-  res.render('PatientListView')
-
-})
-
-stores.get('/view', (req,res)=>{
-  res.render('UpdatePatient')
-
-})
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 //SAVE PATIENT DETAILS...................................................................................
-stores.post('/patient',(req,res)=>{    
-const {pname,gender,date,age,NHIS,RegNo,Tel,address,Facility,District,Region}=req.body;
-const changeDob=moment(date).format('YYYY-MM-DD')
-dbconnect.query(NewPatient,{Name:pname,gender:gender,dob:changeDob,age:age,NHIS:NHIS,RegNo:RegNo,Tel:Tel,address:address,Region:Region,District:District,Facility:Facility},(err,data)=>{
-if(err){
-  console.log(err);
-  res.sendStatus(500);
-  return;
-}else{
-res.redirect('/vp')
-}
-  })
-})
+stores.post("/patient", (req, res) => {
+  const {
+    pname,
+    gender,
+    date,
+    age,
+    NHIS,
+    RegNo,
+    Tel,
+    address,
+    Facility,
+    District,
+    Region,
+  } = req.body;
+  const changeDob = moment(date).format("YYYY-MM-DD");
+  dbconnect.query(
+    NewPatient,
+    {
+      Name: pname,
+      gender: gender,
+      dob: changeDob,
+      age: age,
+      NHIS: NHIS,
+      RegNo: RegNo,
+      Tel: Tel,
+      address: address,
+      Region: Region,
+      District: District,
+      Facility: Facility,
+    },
+    (err, data) => {
+      if (err) {
+        console.log(err);
+        res.sendStatus(500);
+        return;
+      } else {
+        res.redirect("/vp");
+      }
+    }
+  );
+});
 
 // FP
 // VIEW PATIENT RECORDS ON A TABLE LIST
 
-stores.get('/vp', (req,res)=>{
-  dbconnect.query(ViewPatient,(err,data)=>{
+stores.get("/vp", (req, res) => {
+  dbconnect.query(
+    "select count(Name) as 'count'  from  Patient;select * from  Patient",
+    (err, data) => {
+      if (err) {
+        console.log(err);
+        res.sendStatus(500);
+        return;
+      } else {
+        const Count = data[0];
+        const All = data[1];
+        res.render("PatientListView", { Data: All, Count: Count });
+      }
+    }
+  );
+});
+//  FP
+//DELETE PATIENTS REGISTRATION RECORDS FP
+stores.get("/pdelete", (req, res) => {
+  dbconnect.query(DeletePatient, req.query.id, (err, results) => {
+    if (err) {
+      console.log(err);
+      res.sendStatus(500);
+      return;
+    } else {
+      res.redirect("/vp");
+    }
+  });
+});
+
+// FP
+//VIEW DETAILS OF  PATIENTS REGISTRATION RECORDS  FP
+stores.get("/views", (req, res) => {
+  dbconnect.query(GetPatientDetails, req.query.id, (err, Details) => {
+    res.render("UpdatePatient", { Details: Details[0] });
+  });
+});
+
+//FP
+//UPDATE PATIENT RECORDS
+stores.post("/change", (req, res) => {
+  const {
+    pname,
+    gender,
+    date,
+    age,
+    NHIS,
+    RegNo,
+    Tel,
+    address,
+    Region,
+    District,
+    Facility,
+    patientid,
+  } = req.body;
+  const changeDob = moment(date).format("YYYY-MM-DD");
+  const GetData = [
+    pname,
+    gender,
+    changeDob,
+    age,
+    NHIS,
+    RegNo,
+    Tel,
+    address,
+    Region,
+    District,
+    Facility,
+    patientid,
+  ];
+  dbconnect.query(UpdateDetails, GetData, (err, results) => {
+    {
+      if (err) {
+        throw err;
+      } else {
+        res.send({
+          status: "success",
+          success: "data saved successfully" + results.affectedRows,
+        });
+      }
+    }
+  });
+});
+
+//FP
+//SEARCH PATIENTS RECORDS BY NAME
+stores.post("/vp", (req, res) => {
+  const { NameSearch } = req.body;
+  dbconnect.query(namesearch, [NameSearch, NameSearch], (err, data) => {
+    if (err) {
+      console.log(err);
+      res.sendStatus(500);
+      return;
+    } else {
+      const Count = data[0];
+      const All = data[1];
+      res.render("PatientListView", { Data: All, Count: Count });
+    }
+  });
+});
+
+//FP
+//SEARCH PATIENTS RECORDS BY MOBILE N0
+stores.post("/pview", (req, res) => {
+  const { Mobilesearch } = req.body;
+  dbconnect.query(mobilesearch, [Mobilesearch, Mobilesearch], (err, Data) => {
+    if (err) {
+      console.log(err);
+      res.sendStatus(500);
+      return;
+    } else {
+      const Count = Data[0];
+      const All = Data[1];
+      res.render("PatientListView", { Data: All, Count: Count });
+    }
+  });
+});
+
+//FP
+//SEARCH PATIENTS RECORDS BY MOBILE N0
+stores.post("/rview", (req, res) => {
+  const { Mobilesearch } = req.body;
+  dbconnect.query(mobilesearch, [Mobilesearch, Mobilesearch], (err, Data) => {
+    if (err) {
+      res.sendStatus(500);
+      return;
+    } else {
+      const Count = Data[0];
+      const All = Data[1];
+      res.render("PatientListView", { Data: All, Count: Count });
+    }
+  });
+});
+
+//FP
+//SEARCH PATIENTS RECORDS BY REG N0
+stores.post("/regno", (req, res) => {
+  const { Regsearch } = req.body;
+  dbconnect.query(regsearch, [Regsearch, Regsearch], (err, Data) => {
+    if (err) {
+      console.log(err);
+      res.sendStatus(500);
+      return;
+    } else {
+      const Count = Data[0];
+      const All = Data[1];
+      res.render("PatientListView", { Data: All, Count: Count });
+    }
+  });
+});
+
+//CLINICAL RECORDS OF FAMILY PLANNING
+
+stores.get("/fpsave", (req, res) => {
+  res.render("FamilyPlanning", {Data:''});
+});
+
+stores.get("/seepatient", (req, res) => {
+  res.render("FamilyPlanning", {Data:''});
+});
+
+//GETTING DATA FOR SMS SENDING and sending data through get request USING FETCH API METHOD
+stores.get("/", (req, res) => {
+  res.render("Dashboard");
+  const SmsDate = new Date();
+  const changeDob = moment(SmsDate).format("YYYY-MM-DD");
+  dbconnect.query(TimeUp,changeDob, (err, data) => {
+    if (err) {
+      console.log(err);
+      res.sendStatus(500);
+      return;
+    } else {
+      
+      const MessageList = data.forEach((element) => {
+        const contact=[element.clientnumber]
+        console.log(contact)
+        fetch(
+          "https://api.smsonlinegh.com/v4/message/sms/send?key=" +
+            key +
+            "&text=" +
+            Message +
+            "%21&type=0&sender=" +
+            SenderID +
+            "&to=" +
+            contact +
+            "",
+          {
+            method: "GET",
+            headers: {
+              Accept: "application/json",
+              "Content-Type": " application/x-www-form-urlencoded",
+            },
+            Host: "api.smsonlinegh.com",
+          }
+        )
+          .then((response) => response.json())
+          .then((data) => console.log(JSON.stringify(data)));
+      });
+      return MessageList;
+    }
+  });
+
+  dbconnect.query(UpdateSmsStatus,changeDob, (err,Status)=>{
     if(err){
       console.log(err);
       res.sendStatus(500);
       return;
     }else{
-      res.render('PatientListView',{ Data:data })
+console.log('Updated')
+    
+    
+    }
+      })
+});
+
+/////////////////////////////////////////
+//FP
+//SAVING CLINICAL RECORDS OF FAMILY PLANNING
+stores.post('/save',(req,res)=>{   
+  const {clientnumber,pdata,lab_test,blood,weight,serve,commodity,remarks,visit,Region,District,Facility,date,RegNo}=req.body;
+  const changeDate = moment(date).format("YYYY-MM-DD");
+  const changevisit=moment(visit).format('YYYY-MM-DD')
+  const beforevisit=moment(changevisit).add(-1, 'days').format('YYYY-MM-DD');
+
+dbconnect.query(SaveNewItems, {clientnumber:clientnumber,pdata:pdata,lab_test:lab_test,blood:blood,weight:weight,serve:serve,commodity:commodity,remarks:remarks,visit:changevisit,daybefore:beforevisit,Region:Region,District:District,Facility:Facility,Date:changeDate,SmsStatus:'Pending',RegNo:RegNo},(err,datas)=>{
+if(err){
+  console.log(err);
+  res.sendStatus(500);
+  return;
+}else{
+  res.send({
+    status: "success",
+    success: "data saved successfully" + datas.affectedRows,
+  });
+
+
+}
+  })
+
+  dbconnect.query(SaveSend, (err,data)=>{
+    if(err){
+      console.log(err);
+      res.sendStatus(500);
+      return;
+    }else{
+      let MessageList = data.forEach((element) => {
+        const contact=[element.clientnumber]
+       let NextVisitDate=''
+       NextVisitDate=element.visit
+       let FacilityPersonal='DOMINASE SDA HOSPITAL,'
+       FacilityPersonal=element.Facility
+        let MessagePersonal='THANK YOU FOR VISITING, '+FacilityPersonal+', TODAY,YOU HAVE BEEN ENROLLED ON THE FAMILY PLANNING NETWORK.YOUR NEXT VISIT IS '+NextVisitDate+' THANK YOU.'
+        console.log(contact)
+        fetch(
+          "https://api.smsonlinegh.com/v4/message/sms/send?key=" +
+            key +
+            "&text=" +
+            MessagePersonal +
+            "%21&type=0&sender=" +
+            SenderID +
+            "&to=" +
+            contact +
+            "",
+          {
+            method: "GET",
+            headers: {
+              Accept: "application/json",
+              "Content-Type": " application/x-www-form-urlencoded",
+            },
+            Host: "api.smsonlinegh.com",
+          }
+        )
+          .then((response) => response.json())
+          .then((data) => console.log(JSON.stringify(data)))
+          .catch(error => {
+        throw(error);
+    })
+      }) 
+      return MessageList;
+    
+    
     }
       })
 })
-//  FP
-//DELETE PATIENTS REGISTRATION RECORDS FP
-stores.get('/pdelete',(req,res)=>{
- dbconnect.query(DeletePatient, req.query.id, (err,results)=>{
-  if(err){
-    console.log(err);
-    res.sendStatus(500);
-    return;
-  }else{
- res.redirect('/vp')
-  }
- })
+
+
+//VIEW LIST OF CLINICAL DATA
+stores.get('/display', (req,res)=>{
+  dbconnect.query(FAll,(err,data)=>{
+    if(err){
+      console.log(err);
+      res.sendStatus(500);
+      return;
+    }else{
+      res.render('display',{ Data:data[1], Count:data[0] })
+    }
+      })
 })
 
-// FP
-//VIEW DETAILS OF  PATIENTS REGISTRATION RECORDS  FP
-stores.get('/views',(req,res)=>{
-  dbconnect.query(GetPatientDetails, req.query.id, (err,Details)=>{
-    res.render('UpdatePatient', { Details: Details[0]})
+
+//VIEW LIST OF CLINICAL DATA
+stores.get('/searchfirst', (req,res)=>{
+  dbconnect.query(FAll,(err,data)=>{
+    if(err){
+      console.log(err);
+      res.sendStatus(500);
+      return;
+    }else{
+      res.render('SearchFirst',{ Data:data[1], Count:data[0] })
+    }
+      })
+})
+//FP
+//SEARCH CLINICAL RECORDS BY NAME
+stores.post("/fname", (req, res) => {
+  const { NameSearch } = req.body;
+  dbconnect.query(Fnamesearch, [NameSearch, NameSearch], (err, Data) => {
+    if (err) {
+      console.log(err);
+      res.sendStatus(500);
+      return;
+    } else {
+      const Count = Data[0];
+      const All = Data[1];
+      res.render("display", { Data: All, Count: Count });
+    }
+  });
+});
+
+//FP
+//SEARCH CLINICAL RECORDS BY MOBILE N0
+stores.post("/fmobile", (req, res) => {
+  const { Mobilesearch } = req.body;
+  dbconnect.query(Fmobilesearch, [Mobilesearch, Mobilesearch], (err, Data) => {
+    if (err) {
+      res.sendStatus(500);
+      return;
+    } else {
+      const Count = Data[0];
+      const All = Data[1];
+      res.render("display", { Data: All, Count: Count });
+    }
+  });
+});
+
+//FP
+//SEARCH CLINICAL RECORDS BY REG N0
+stores.post("/freg", (req, res) => {
+  const { Regsearch } = req.body;
+  dbconnect.query(Fregsearch, [Regsearch, Regsearch], (err, Data) => {
+    if (err) {
+      console.log(err);
+      res.sendStatus(500);
+      return;
+    } else {
+      const Count = Data[0];
+      const All = Data[1];
+      res.render("PatientListView", { Data: All, Count: Count });
+    }
+  });
+});
+//FP
+//DELETE ITEM FROM CLINICAL HISTORY
+stores.get('/delete',(req,res)=>{
+  dbconnect.query(Delete, req.query.id, (err,results)=>{
+    res.redirect('/display')
+  })
+})
+//FP
+//VIEW DETAILS OF CLINET CLINICAL HISTORY
+stores.get('/edit',(req,res)=>{
+  dbconnect.query(Update, req.query.id, (err,results)=>{
+    res.render('FamilyPlanningUpdated', { Data: results[0]})
+  })
+})
+
+  stores.post('/search',(req,res)=>{
+    const {searchbar}=req.body
+    dbconnect.query(UpdateName, searchbar, (err,results)=>{
+      res.render('display', { Data: results})
+    })
+})
+
+stores.post('/update',(req,res)=>{
+  const {clientnumber,pdata,lab_test,blood,weight,serve,commodity,remarks,visit,Region,District,Facility,date,RegNo,userid}=req.body;
+  const changeDate = moment(date).format("YYYY-MM-DD");
+  const changevisit=moment(visit).format('YYYY-MM-DD')
+  const beforevisit=moment(changevisit).add(-1, 'days').format('YYYY-MM-DD');
+  dbconnect.query(Allupdate, [clientnumber,pdata,lab_test,blood,weight,serve,commodity,remarks,changevisit,beforevisit,Region,District,Facility,changeDate,RegNo,userid], (err,results)=>{
+    if(err){
+      throw err
+    }else{
+    res.send({status:'success',success:'data updated successfully' +results.affectedRows})
+    }
   })
 })
 
 //FP
-//UPDATE PATIENT RECORDS
-stores.post('/change', (req,res)=>{
-  const {pname,gender,date,age,NHIS,RegNo,Tel,address,Region,District,Facility,patientid}=req.body;
-  const changeDob=moment(date).format('YYYY-MM-DD')
-  const GetData=[pname,gender,changeDob,age,NHIS,RegNo,Tel,address,Region,District,Facility,patientid]
-  dbconnect.query(UpdateDetails, GetData, (err,results)=>{{
-    if(err){
-      throw err
-    }else{
-    res.send({status:'success',success:'data saved successfully' +results.affectedRows})
-    }
-  }})
- })
-
-
-
-stores.listen(port,()=>{
-console.log(`listening at port ${port}`)
+//GET DETAILS OF PATIENTS REG BEFORE SAVING RECORDS
+stores.get('/Details',(req,res)=>{
+  dbconnect.query(Update, req.query.id, (err,results)=>{
+    res.render('FamilyPlanning', { Data: results[0]})
+  })
 })
+
+//SMS HANDLERS
+
+//GETTING DATA FOR SMS SENDING and sending data through get request USING FETCH API METHOD
+stores.post("/Sendsms", (req, res) => {   
+  const { Contacts,Messages }=req.body
+        console.log(Contacts)
+        fetch(
+          "https://api.smsonlinegh.com/v4/message/sms/send?key=" +
+            key +
+            "&text=" +
+            Messages +
+            "%21&type=0&sender=" +
+            SenderID +
+            "&to=" +
+            Contacts +
+            "",
+          {
+            method: "GET",
+            headers: {
+              Accept: "application/json",
+              "Content-Type": " application/x-www-form-urlencoded",
+            },
+            Host: "api.smsonlinegh.com",
+          }
+        )
+          .then((response) =>{ response.json()
+          })
+          .then((data) =>{
+             console.log(JSON.stringify(data))
+             res.send({
+              status: "success",
+              success:'message send successfully'
+            });
+            })
+          .catch(error => {
+            console.log(error);
+        })
+   
+});
+stores.listen(port, () => {
+  console.log(`listening at port ${port}`);
+});
