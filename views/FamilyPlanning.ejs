@@ -17,7 +17,7 @@
           
             <div class="form-outline m-4">
               <label class="form-label" for="form3Example1">patients Name</label>
-              <input type="text" id="form3Example1" class="form-control" placeholder="patients Name" name="pdata" value="<%= Data.pdata %>" required />              
+              <input type="text" id="form3Example1" class="form-control" placeholder="patients Name" name="pdata" value="<%= Data.Name %>" required />              
             </div>           
             <div class="form-outline m-4">
               <label class="form-label" for="Reg No.">Registration Number</label>
@@ -25,12 +25,12 @@
             </div>
             <div class="form-outline m-4">
               <label class="form-label" for="Tel">Tel(+233)</label>
-              <input type="Number" id="NHIS" class="form-control" placeholder="+233" name="clientnumber" value="<%= Data.clientnumber %>" required />                
+              <input type="Number" id="NHIS" class="form-control" placeholder="+233" name="clientnumber" value="<%= Data.Tel %>" required />                
             </div>
               <div class="form-outline m-4">
                 <label class="form-label" for="NHIS">Region</label>
                 <select class="form-select" aria-label="Default select example" name="Region" required>  
-                  <option value="<%= Data.pdata %>"><%= Data.Region %>"</option>
+                  <option value="<%= Data.Region %>"><%= Data.Region %>"</option>
                   <option value="Ashanti">Ashanti</option>
                   <option value="Ahafo">Ahafo</option>
                   <option value="Bono">Bono</option>
@@ -66,7 +66,7 @@
         </div>
         <div class="col-6">    
           <div class="form-outline m-4 "> 
-            <label class="form-label" for="Reg No.">LAB TEST 1 *</label>             
+            <label class="form-label" for="Reg No.">LAB TEST (PRENANCY TEST)*</label>            
             <select class="form-select" aria-label="Default select example" name="lab_test" required> 
             <option value="None" selected disabled>Choose</option>
             <option value="POSTIVE">POSITIVE</option>

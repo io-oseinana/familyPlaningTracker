@@ -23,6 +23,9 @@ import {
   Fmobilesearch,
   Fregsearch,
   Fnamesearch,
+  Fpregsearch,
+  Fpmobilesearch,
+  Fpnamesearch,
 } from "./public/js/queries.js";
 //QUERIES ABOUT  CLINICAL DATA COLLECTION FOR FAMILY PLANNING
 import {
@@ -33,6 +36,8 @@ import {
   UpdateName,
   Allupdate,
   SaveSend,
+  Updatep,
+  PAll,
 } from "./public/js/queries.js";
 //SMS ALERT MESSAGE PROPERTIES FROM SenderID.JS FILE
 import { Facility, Message, SenderID, Contact, key} from "./send.js";
@@ -451,7 +456,7 @@ stores.get('/display', (req,res)=>{
 
 //VIEW LIST OF CLINICAL DATA
 stores.get('/searchfirst', (req,res)=>{
-  dbconnect.query(FAll,(err,data)=>{
+  dbconnect.query(PAll,(err,data)=>{
     if(err){
       console.log(err);
       res.sendStatus(500);
@@ -461,11 +466,70 @@ stores.get('/searchfirst', (req,res)=>{
     }
       })
 })
+
+//VIEW LIST OF CLINICAL DATA
+stores.post('/searchname', (req,res)=>{
+  const { NameSearch } = req.body;
+  dbconnect.query(Fnamesearch, [NameSearch, NameSearch], (err, data) => {
+    if(err){
+      console.log(err);
+      res.sendStatus(500);
+      return;
+    }else{
+      res.render('SearchFirst',{ Data:data[1], Count:data[0] })
+    }
+      })
+})
+
+//VIEW LIST OF CLINICAL DATA
+stores.post('/searchmobile', (req,res)=>{
+  const { Mobilesearch } = req.body;
+  dbconnect.query(Fmobilesearch, [Mobilesearch,Mobilesearch], (err, data) => {
+    if(err){
+      console.log(err);
+      res.sendStatus(500);
+      return;
+    }else{
+      res.render('SearchFirst',{ Data:data[1], Count:data[0] })
+  }
+  })
+})
+
+
+//VIEW LIST OF CLINICAL DATA
+stores.post('/searchmobile',(req,res)=>{
+  const { Mobilesearch } = req.body;
+  dbconnect.query(Fmobilesearch, [Mobilesearch,Mobilesearch], (err, data) => {
+    if(err){
+      console.log(err);
+      res.sendStatus(500);
+      return;
+    }else{
+      res.render('SearchFirst',{ Data:data[1], Count:data[0] })
+  }
+  })
+})
+
+
+//VIEW LIST OF CLINICAL DATA
+stores.post('/searchreg',(req,res)=>{
+  const { Regsearch } = req.body;
+  dbconnect.query(Fregsearch, [Regsearch,Regsearch], (err, data) => {
+    if(err){
+      console.log(err);
+      res.sendStatus(500);
+      return;
+    }else{
+      res.render('SearchFirst',{ Data:data[1], Count:data[0] })
+  }
+  })
+})
+
 //FP
 //SEARCH CLINICAL RECORDS BY NAME
 stores.post("/fname", (req, res) => {
   const { NameSearch } = req.body;
-  dbconnect.query(Fnamesearch, [NameSearch, NameSearch], (err, Data) => {
+  dbconnect.query(Fpnamesearch, [NameSearch, NameSearch], (err, Data) => {
     if (err) {
       console.log(err);
       res.sendStatus(500);
@@ -478,11 +542,12 @@ stores.post("/fname", (req, res) => {
   });
 });
 
+
 //FP
 //SEARCH CLINICAL RECORDS BY MOBILE N0
 stores.post("/fmobile", (req, res) => {
   const { Mobilesearch } = req.body;
-  dbconnect.query(Fmobilesearch, [Mobilesearch, Mobilesearch], (err, Data) => {
+  dbconnect.query(Fpmobilesearch, [Mobilesearch, Mobilesearch], (err, Data) => {
     if (err) {
       res.sendStatus(500);
       return;
@@ -498,7 +563,7 @@ stores.post("/fmobile", (req, res) => {
 //SEARCH CLINICAL RECORDS BY REG N0
 stores.post("/freg", (req, res) => {
   const { Regsearch } = req.body;
-  dbconnect.query(Fregsearch, [Regsearch, Regsearch], (err, Data) => {
+  dbconnect.query(Fpregsearch, [Regsearch, Regsearch], (err, Data) => {
     if (err) {
       console.log(err);
       res.sendStatus(500);
@@ -549,7 +614,7 @@ stores.post('/update',(req,res)=>{
 //FP
 //GET DETAILS OF PATIENTS REG BEFORE SAVING RECORDS
 stores.get('/Details',(req,res)=>{
-  dbconnect.query(Update, req.query.id, (err,results)=>{
+  dbconnect.query(Updatep, req.query.id, (err,results)=>{
     res.render('FamilyPlanning', { Data: results[0]})
   })
 })

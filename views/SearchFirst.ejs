@@ -18,7 +18,7 @@
                   </form>
             </div>
             <div class="col-4">
-                <form class="d-flex" role="search" action="/sarchmobile" method="post">
+                <form class="d-flex" role="search" action="/searchmobile" method="post">
                     <input class="form-control me-2" type="search" placeholder="Search by Mobile No." aria-label="Search" name="Mobilesearch" style="width: 30rem;">
                     <button class="btn btn-outline-success" type="submit" >Search</button>
                   </form>
@@ -46,9 +46,8 @@
           <th scope="col">Client ID</th>
           <th scope="col">Date</th>
           <th scope="col">Facility</th>
-          <th scope="col">FP Service</th>
-          <th scope="col">Commodity</th>
-          <th scope="col">N-Visit Date</th>
+          <th scope="col">District</th>
+          <th scope="col">Region</th>
           <th scope="col">Details</th>
         </tr>
       </thead>
@@ -56,14 +55,13 @@
          <%  Data.forEach(function(data) { %> 
         <tr>
           <td><%= data.id %></td>
-          <td><%= data.pdata %></td>
-          <td><%= data.clientnumber %></td>
+          <td><%= data.Name %></td>
+          <td><%= data.Tel %></td>
           <td><%= data.RegNo %></td>
-          <td><%= data.Date %></td>
+          <td><%= data.Dob %></td>
           <td><%= data.Facility %></td>
-          <td><%= data.serve %></td>
-          <td><%= data.commodity %></td>
-          <td><%= data.visit %></td>
+          <td><%= data.District %></td>
+          <td><%= data.Region %></td>
           <td><a href="/Details?id=<%=data.id %>"><button class="btn btn-primary">Get Details</button></a></td>
      
         </tr>
