@@ -415,9 +415,9 @@ if(err){
         const contact=[element.clientnumber]
        let NextVisitDate=''
        NextVisitDate=element.visit
-       let FacilityPersonal='DOMINASE SDA HOSPITAL,'
+       let FacilityPersonal='SDA HOSPITAL,DOMINASE '
        FacilityPersonal=element.Facility
-        let MessagePersonal='THANK YOU FOR VISITING, '+FacilityPersonal+', TODAY,YOU HAVE BEEN ENROLLED ON THE FAMILY PLANNING NETWORK.YOUR NEXT VISIT IS '+NextVisitDate+' THANK YOU.'
+        let MessagePersonal='THANK YOU FOR VISITING, '+FacilityPersonal+', TODAY,YOU HAVE BEEN ENROLLED ON THE FP SERVICE.YOUR NEXT VISIT IS '+NextVisitDate+' THANK YOU.'
         console.log(contact)
         fetch(
           "https://api.smsonlinegh.com/v4/message/sms/send?key=" +
