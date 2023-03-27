@@ -441,7 +441,7 @@ if(err){
           .then((response) => response.json())
           .then((data) => console.log(JSON.stringify(data)))
           .catch(error => {
-        throw(error);
+        console.log(error)
     })
       }) 
       return MessageList;
