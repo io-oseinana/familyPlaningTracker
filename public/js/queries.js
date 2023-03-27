@@ -34,3 +34,5 @@ export const  Fpmobilesearch="select count(pdata) as 'count'  from fplanning whe
 export const  Fpregsearch="select count(pdata) as 'count'  from  fplanning where RegNo=?;select * from  fplanning where RegNo=?"
 export const  FAll="select count(pdata) as 'count'  from  fplanning;select * from  fplanning"
 export const  PAll="select count(name) as 'count'  from  patient;select * from  patient"
+export const PeridicReport="select * from fplanning where date between ? and ?"
+export const FirstEver="select * from fplanning where serve=?"

@@ -5,6 +5,10 @@ import { config } from "dotenv";
 import { dbconnect } from "./dbConnect.js";
 import moment from "moment/moment.js";
 import fetch from "node-fetch";
+import PDFDocument from "pdfkit"
+import fs from  "fs"
+import easyinvoice from 'easyinvoice';
+
 //QUERIES ABOUT PATIENTS REGISTRATION FOR FAMILY PLANNING
 import {
   NewPatient,
@@ -26,6 +30,7 @@ import {
   Fpregsearch,
   Fpmobilesearch,
   Fpnamesearch,
+  PeridicReport,
 } from "./public/js/queries.js";
 //QUERIES ABOUT  CLINICAL DATA COLLECTION FOR FAMILY PLANNING
 import {
@@ -87,6 +92,11 @@ stores.get("/view", (req, res) => {
 
 stores.get("/Send", (req, res) => {
   res.render("Send");
+});
+
+
+stores.get("/getreport", (req, res) => {
+  res.render("GetReport");
 });
 
 
@@ -320,13 +330,13 @@ stores.get("/", (req, res) => {
   res.render("Dashboard");
   const SmsDate = new Date();
   const changeDob = moment(SmsDate).format("YYYY-MM-DD");
+  console.log(changeDob);
   dbconnect.query(TimeUp,changeDob, (err, data) => {
     if (err) {
       console.log(err);
       res.sendStatus(500);
       return;
     } else {
-      
       const MessageList = data.forEach((element) => {
         const contact=[element.clientnumber]
         console.log(contact)
@@ -350,23 +360,25 @@ stores.get("/", (req, res) => {
           }
         )
           .then((response) => response.json())
-          .then((data) => console.log(JSON.stringify(data)));
+          .then((data) => {
+            console.log(JSON.stringify(data))
+            dbconnect.query(UpdateSmsStatus,changeDob, (err,Status)=>{
+              if(err){
+                console.log(err);
+                res.sendStatus(500);
+                return;
+              }else{
+          console.log('Updated')
+              }
+                })
+          }) .catch(error => {
+            console.log(error)
+        });
+
       });
       return MessageList;
     }
   });
-
-  dbconnect.query(UpdateSmsStatus,changeDob, (err,Status)=>{
-    if(err){
-      console.log(err);
-      res.sendStatus(500);
-      return;
-    }else{
-console.log('Updated')
-    
-    
-    }
-      })
 });
 
 /////////////////////////////////////////
@@ -658,6 +670,52 @@ stores.post("/Sendsms", (req, res) => {
         })
    
 });
+//FP
+//GETTING COMPREHENSIVE REPORT OF CLINICAL RECORDS WITHIN A PERIOD
+stores.post('/periodicreport',(req,res)=>{
+const {Date1,Date2}=req.body
+dbconnect.query(PeridicReport, [Date1,Date2], (err,Report)=>{
+  if(err){
+    throw err
+  }else{
+  res.render('Report', { Report : Report})
+  }
+})
+
+})
+
+//SEARCH REPORT BY DATE
+stores.get('/firstever', (req,res)=>{
+  const {FirstEver}=req.body
+  dbconnect.query(PeridicReport, [FirstEver], (err,Report)=>{
+    if(err){
+      throw err
+    }else{
+    //res.render('Report', { Report : Report})
+    Report. forEach(async element => {
+      console.log(element.pdata)
+})
+}
+})
+
+});
+
+//SEARCH REPORT BY DATE
+stores.get('/periodicreport', (req,res)=>{
+  const {Periodic}=req.body
+  dbconnect.query(PeridicReport, [Periodic,PeridicReport], (err,Report)=>{
+    if(err){
+      throw err
+    }else{
+    //res.render('Report', { Report : Report})
+    Report. forEach(async element => {
+      console.log(element.pdata)
+})
+}
+})
+
+});
+
 stores.listen(port, () => {
   console.log(`listening at port ${port}`);
 });
