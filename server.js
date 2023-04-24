@@ -61,9 +61,9 @@ stores.set("view engine", "ejs");
 stores.use("/public", express.static("public"));
 stores.use(bodyParser.urlencoded({ extended: true }));
 
-// stores.get("/", (req, res) => {
-//   res.render("Dashboard");
-// });
+stores.get("/", (req, res) => {
+  res.render("Dashboard");
+});
 
 stores.get("/main", (req, res) => {
    res.render("panel");
