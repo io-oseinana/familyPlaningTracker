@@ -38,6 +38,8 @@ import {
   PatientsReportTel,
   PatientsReportName,
   searchTelephone,
+  SignUp,
+  Login,
 } from "./public/js/queries.js";
 //QUERIES ABOUT  CLINICAL DATA COLLECTION FOR FAMILY PLANNING
 import {
@@ -62,6 +64,10 @@ stores.use("/public", express.static("public"));
 stores.use(bodyParser.urlencoded({ extended: true }));
 
 stores.get("/", (req, res) => {
+  res.render("signin");
+});
+
+stores.get("/dashboard", (req, res) => {
   res.render("Dashboard");
 });
 
@@ -72,6 +78,11 @@ stores.get("/main", (req, res) => {
 stores.get("/signup", (req, res) => {
   res.render("signUp");
 });
+
+stores.get("/signin", (req, res) => {
+  res.render("signIn", {errorMessage:''});
+});
+
 
 stores.get("/Register", (req, res) => {
   res.render('FamilyPlanning', {Data: '' })
@@ -144,18 +155,40 @@ stores.get("/success", (req, res) => {
 // SAVING LOGIN AND SIGNUP DATA
 
 stores.post('/Account',(req,res)=>{    
-  const {email,Tel,address,Facility,District,Region, floatingPassword, Accessibility}=req.body;
-  const changeDob=moment(date).format('YYYY-MM-DD')
-  dbconnect.query(Account,{Email:email,Facility:Facility,Tel:Tel,address:address,Region:Region,District:District, Accessibility: Accessibility,Password:floatingPassword},(err,data)=>{
+  const {Name,email,Tel,Facility,District,Region,password,Accessibility}=req.body;
+  dbconnect.query(SignUp,{Name:Name,Email:email,Facility:Facility,Tel:Tel,Region:Region,District:District,Accessibility: Accessibility,Password:password},(err,data)=>{
     if(err){
       console.log(err);
       res.sendStatus(500);
       return;
     }else{
-      res.redirect('/signUp')
+      res.redirect('/signin')
     }
   })
 })
+
+
+// LOGIN TO MAIN PAGE
+
+stores.post('/login',(req,res)=>{    
+  const {email,password}=req.body;
+  dbconnect.query(Login,[email,password],(err,data)=>{
+    if(err){
+      console.log(err);
+      res.sendStatus(500);
+      return;
+    }else{
+      if(data[0]){
+      res.redirect('/dashboard')
+      }else{
+        res.render('signIn', {errorMessage:'Incorrect Email or Password!'})
+      }
+    }
+  })
+})
+
+
+
 
 //SAVE PATIENT DETAILS...................................................................................
 stores.post("/patient", (req, res) => {

@@ -42,3 +42,8 @@ export const PeridicReport="select * from fplanning where date between ? and ?;s
 export const FirstEver="select * from fplanning where serve = ?;select count(serve) as 'count' from fplanning where serve = ?"
 export const ClientsInfo="select * from fplanning where pdata = ?;select count(pdata) as 'count' from fplanning where pdata = ?"
 export const ClientsNum="select * from fplanning where clientnumber = ?;select count(pdata) as 'count' from fplanning where clientnumber = ?"
+
+//ACCOUNTS AND AUTHENTICATION QUERIES
+
+export const SignUp="insert into SignUp set ?";
+export const Login="select email,password from SignUp where email=? and password=?";
