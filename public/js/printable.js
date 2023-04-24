@@ -1,6 +1,6 @@
 document.getElementById('print').addEventListener('click',()=>{
-    var HTML_Width = $(".container-fluid").width();
-    var HTML_Height = $(".container-fluid").height();
+    var HTML_Width = $("#container").width();
+    var HTML_Height = $("#container").height();
     var top_left_margin = 15;
     var PDF_Width = HTML_Width+(top_left_margin*2);
     var PDF_Height = (PDF_Width*1.5)+(top_left_margin*2);
@@ -10,7 +10,7 @@ document.getElementById('print').addEventListener('click',()=>{
     var totalPDFPages = Math.ceil(HTML_Height/PDF_Height)-1;
     
 
-    html2canvas($(".container-fluid")[0],{allowTaint:true}).then(function(canvas) {
+    html2canvas($("#container")[0],{allowTaint:true}).then(function(canvas) {
         canvas.getContext('2d');
         
         console.log(canvas.height+"  "+canvas.width);

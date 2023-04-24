@@ -31,6 +31,13 @@ import {
   Fpmobilesearch,
   Fpnamesearch,
   PeridicReport,
+  FirstEver,
+  ClientsInfo,
+  ClientsNum,
+  PatientsAll,
+  PatientsReportTel,
+  PatientsReportName,
+  searchTelephone,
 } from "./public/js/queries.js";
 //QUERIES ABOUT  CLINICAL DATA COLLECTION FOR FAMILY PLANNING
 import {
@@ -59,7 +66,7 @@ stores.use(bodyParser.urlencoded({ extended: true }));
 // });
 
 stores.get("/main", (req, res) => {
-   res.render("main");
+   res.render("panel");
 });
 
 stores.get("/signup", (req, res) => {
@@ -97,6 +104,38 @@ stores.get("/Send", (req, res) => {
 
 stores.get("/getreport", (req, res) => {
   res.render("GetReport");
+});
+
+stores.get("/getreportfp", (req, res) => {
+  res.render("GetReportFP");
+});
+
+stores.get("/getreportclient", (req, res) => {
+  res.render("GetReportClient");
+});
+
+stores.get("/reportoption", (req, res) => {
+  res.render("ReportOptions");
+});
+
+stores.get("/AllReportOptions", (req, res) => {
+  res.render("AllReportOptions");
+});
+
+stores.get("/POptions", (req, res) => {
+  res.render("PatientsReport/PatientOptions");
+});
+
+stores.get("/GetClientsDetails", (req, res) => {
+  res.render("PatientsReport/GetClientsDetails");
+});
+
+stores.get("/clientdate", (req, res) => {
+  res.render("PatientsReport/GetPatients");
+});
+
+stores.get("/success", (req, res) => {
+  res.render("successpage");
 });
 
 
@@ -155,7 +194,9 @@ stores.post("/patient", (req, res) => {
         res.sendStatus(500);
         return;
       } else {
-        res.redirect("/vp");
+        dbconnect.query(searchTelephone, Tel, (err,results)=>{
+          res.render('FamilyPlanning', { Data: results[0]})
+        })
       }
     }
   );
@@ -233,6 +274,7 @@ stores.post("/change", (req, res) => {
     District,
     Facility,
     patientid,
+    PatientsAll,
   ];
   dbconnect.query(UpdateDetails, GetData, (err, results) => {
     {
@@ -313,6 +355,51 @@ stores.post("/regno", (req, res) => {
       res.render("PatientListView", { Data: All, Count: Count });
     }
   });
+});
+
+//FP
+//GETTING COMPREHENSIVE REPORT OF PATIENTS  RECORDS ALL
+stores.post('/PatientInfo', (req,res)=>{
+  dbconnect.query(PatientsAll,(err,Report)=>{
+    if(err){
+      throw err
+    }else{
+      res.render('PatientsReport/AllEntries', { Report : Report[0], Count : Report[1]})
+}
+})
+
+});
+
+//FP
+//GETTING COMPREHENSIVE REPORT OF PATIENTS  RECORDS BY
+stores.post('/PatientsNumber', (req,res)=>{
+  const {Mobile}=req.body
+  dbconnect.query(PatientsReportTel, [Mobile,Mobile], (err,Report)=>{
+    if(err){
+      throw err
+    }else{
+      let Name=""
+      Report[0].forEach((rep)=>{
+         Name=rep.Name
+      })
+      res.render('PatientsReport/ReportbyPatient', { Report : Report[0], Count : Report[1], Name: Name })
+}
+})
+
+});
+
+//FP
+//GETTING COMPREHENSIVE REPORT OF PATIENTS  RECORDS BY
+stores.post('/PatientName', (req,res)=>{
+  const {Name}=req.body
+  dbconnect.query(PatientsReportName, [Name,Name], (err,Report)=>{
+    if(err){
+      throw err
+    }else{
+      res.render('PatientsReport/ReportbyPatient', { Report : Report[0], Count : Report[1], Name: Name })
+}
+})
+
 });
 
 //CLINICAL RECORDS OF FAMILY PLANNING
@@ -396,10 +483,8 @@ if(err){
   res.sendStatus(500);
   return;
 }else{
-  res.send({
-    status: "success",
-    success: "data saved successfully" + datas.affectedRows,
-  });
+    res.redirect('/success')
+
 
 
 }
@@ -674,43 +759,59 @@ stores.post("/Sendsms", (req, res) => {
 //GETTING COMPREHENSIVE REPORT OF CLINICAL RECORDS WITHIN A PERIOD
 stores.post('/periodicreport',(req,res)=>{
 const {Date1,Date2}=req.body
-dbconnect.query(PeridicReport, [Date1,Date2], (err,Report)=>{
+dbconnect.query(PeridicReport, [Date1,Date2,Date1,Date2], (err,Report)=>{
   if(err){
     throw err
   }else{
-  res.render('Report', { Report : Report})
+  res.render('ReportbyDate', { Report : Report[0], Count : Report[1], Date1 : Date1, Date2 : Date2})
   }
 })
 
 })
-
-//SEARCH REPORT BY DATE
-stores.get('/firstever', (req,res)=>{
-  const {FirstEver}=req.body
-  dbconnect.query(PeridicReport, [FirstEver], (err,Report)=>{
+//FP
+//GETTING COMPREHENSIVE REPORT OF CLINICAL RECORDS WITHIN A PERIOD
+//SEARCH REPORT BY FP SERVICE
+stores.post('/fpservice', (req,res)=>{
+  const {serve}=req.body
+  dbconnect.query(FirstEver, [serve,serve], (err,Report)=>{
     if(err){
       throw err
     }else{
-    //res.render('Report', { Report : Report})
-    Report. forEach(async element => {
-      console.log(element.pdata)
-})
+      res.render('ReportbyFP', { Report : Report[0], Count : Report[1]})
 }
 })
 
 });
 
-//SEARCH REPORT BY DATE
-stores.get('/periodicreport', (req,res)=>{
-  const {Periodic}=req.body
-  dbconnect.query(PeridicReport, [Periodic,PeridicReport], (err,Report)=>{
+//FP
+//GETTING COMPREHENSIVE REPORT OF CLINICAL RECORDS WITHIN A PERIOD
+//SEARCH REPORT BY CLIENT INFO(NAME)
+stores.post('/ClientsInfo', (req,res)=>{
+  const {Name}=req.body
+  dbconnect.query(ClientsInfo, [Name,Name], (err,Report)=>{
     if(err){
       throw err
     }else{
-    //res.render('Report', { Report : Report})
-    Report. forEach(async element => {
-      console.log(element.pdata)
+      res.render('ReportbyClient', { Report : Report[0], Count : Report[1], Name: Name})
+}
 })
+
+});
+
+//FP
+//GETTING COMPREHENSIVE REPORT OF CLINICAL RECORDS WITHIN A PERIOD
+//SEARCH REPORT BY CLIENT INFO(TELEPHONE)
+stores.post('/ClientsNumber', (req,res)=>{
+  const {Mobile}=req.body
+  dbconnect.query(ClientsNum, [Mobile,Mobile], (err,Report)=>{
+    if(err){
+      throw err
+    }else{
+      let Name=""
+      Report[0].forEach((rep)=>{
+         Name=rep.pdata
+      })
+      res.render('ReportbyClient', { Report : Report[0], Count : Report[1], Name: Name })
 }
 })
 

@@ -1,0 +1,44 @@
+@media(max-width:780px) {
+    #row{
+    display:flex;
+    flex-direction:column;
+margin: auto;
+justify-content: first baseline;
+align-items: first baseline;
+margin-left: -120px;
+    }
+
+#search{
+width: 300px;
+height: 50px;
+}
+
+#sbtn{
+    width: 100px;
+    height: 50px;
+    font-size: small;
+    margin-left: -30px;
+    }
+
+#sform{
+display: flex;
+flex-direction: row;
+margin-top: -20px;
+}
+
+h1{
+   font-size: large;
+    }
+    #message{
+width: 420px;
+margin-top: -50px;
+    }
+
+    #page{
+    margin-top: 10px;
+    }
+
+    #sms{
+        margin-top: -50px;
+        }
+}

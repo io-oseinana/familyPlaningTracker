@@ -3,21 +3,29 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Bootstrap demo</title>
+    <title>Time Aso App</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.3/jspdf.min.js"></script>
 <script src="https://html2canvas.hertzen.com/dist/html2canvas.js"></script>
   </head>
   <body>
-    <div class="container-fluid mt-5">
-        <span  style="font-family: Verdana, Geneva, Tahoma, sans-serif;font-size: larger;background-color: darkgoldenrod;"><span style="font-family: Verdana, Geneva, Tahoma, sans-serif;">Total Count:</span></span>
-
+      <div class="container-fluid mt-3">
+      <div style="display:flex;justify-content: center;align-items: center;margin-top: 5px;"><button style="background-color: white;border: none;color: blue;" id="print">Print Report</button></div>
+      <div class="container-fluid" id="container">
+      <div>
+      <h1  style="text-align: center;background-color: darkgray;">Family Planning Data Collection Report</h1>
+      </div>
+      <div style="margin-top: 10px;">
+      <h1 style="text-align: center;font-size:x-large;text-decoration: underline;">Name of Client: <%= Name %></h1>
+      </div>
+      <%  Count.forEach(function(data) { %>
+      <span style="font-family: Verdana, Geneva, Tahoma, sans-serif;font-size:20px;">Total Client/Clients:<%= data.count %></span>
+      <% }); %>
       <div class="container-fluid">
-        <table class="table table-hover table-white">
-          <thead class="thead-dark" style="background-color:white;color: rgb(224, 98, 25);">
-            
-        <tr>
+      <table class="table table-hover table-white">
+      <thead class="thead-dark" style="background-color:white;color: rgb(224, 98, 25);">          
+  <tr >
           <th scope="col">ID</th>
           <th scope="col">Patients Name</th>
           <th scope="col">Contact</th>
@@ -29,14 +37,14 @@
           <th scope="col">Commodity</th>
           <th scope="col">FP Service</th>
           <th scope="col">Next Visit</th>
-          <th scope="col">Commodity</th>
+          <th scope="col">Facility</th>
           <th scope="col">District</th>
           <th scope="col">Region</th>
         </tr>
       </thead>
       <tbody>
          <%  Report.forEach(function(data) { %> 
-        <tr>
+        <tr style="font-size: 12px;">
           <td><%= data.id %></td>
           <td><%= data.pdata %></td>
           <td><%= data.clientnumber %></td>
@@ -57,7 +65,7 @@
     </table>
   </div>
   </div>
-
+</div>
 
 <script type="text/javascript" src="https://html2canvas.hertzen.com/dist/html2canvas.js"></script>
 <script src="public/js/printable.js"></script>

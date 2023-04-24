@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Time Aso App</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.3/jspdf.min.js"></script>
+<script src="https://html2canvas.hertzen.com/dist/html2canvas.js"></script>
+  </head>
+  <body>
+    <%- include('partials/navbar') %>
+        <div class="container-fluid">
+          <form class="d-flex" role="search" action="/fpservice" method="post">
+          <div class="row">             
+              <div class="col-6">   
+              <div class="form-outline m-4 "> 
+                <label class="form-label" for="weight">Type Of FP Service</label>             
+                <select class="form-select" aria-label="Default select example" name="serve" required> 
+                <option value="None" selected disabled>Choose</option>
+                <option value="1st Ever(New Acceptors)">1st Ever(New Acceptors)</option>
+                <option value="CONTINUE COMMODITY GIVEN">CONTINUE COMMODITY GIVEN</option>
+                <option value="VISIT NO COMMODITY GIVEN">VISIT NO COMMODITY GIVEN</option>
+                <option value="VISIT COMMODITY GIVEN">VISIT COMMODITY GIVEN</option>
+                <option value="COUNSELLING ONLY">COUNSELLING ONLY</option>
+              </select>
+            </div>
+          </div>
+            <div class="col-6">
+              <button class="btn btn-outline-success" type="submit" >Search</button>
+           
+      </div>
+        </div>
+      </form>
+        </div>
+
+
+
+
+<script type="text/javascript" src="https://html2canvas.hertzen.com/dist/html2canvas.js"></script>
+  </body>
+</html>
