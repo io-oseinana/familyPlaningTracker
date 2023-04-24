@@ -34,4 +34,13 @@
                 
                     }
 
+     #register {
+        left: 2rem;
+     }
+     .form-control,
+     .form-select,
+      #regbtn{
+        width: 50%;
+     }
+
 }

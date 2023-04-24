@@ -64,7 +64,7 @@ stores.use("/public", express.static("public"));
 stores.use(bodyParser.urlencoded({ extended: true }));
 
 stores.get("/", (req, res) => {
-  res.render("signin");
+  res.render("signin",{errorMessage:''});
 });
 
 stores.get("/dashboard", (req, res) => {
