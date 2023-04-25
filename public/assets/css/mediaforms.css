@@ -1,4 +1,17 @@
 @media(max-width:780px) {
+
+    #form_container {
+        margin-top: 10rem;
+    }
+
+    #ex1 {
+        margin-top: -19rem;
+    }
+
+    .form-control {
+        width: 100%;
+    }
+
     #row{
     display:flex;
     flex-direction:column;
@@ -35,12 +48,13 @@
                     }
 
      #register {
-        left: 2rem;
+        left: 0;
+        width: 100%;
      }
      .form-control,
      .form-select,
       #regbtn{
-        width: 50%;
+        width: 100%;
      }
 
 }
