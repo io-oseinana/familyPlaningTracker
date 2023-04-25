@@ -63,8 +63,16 @@ stores.set("view engine", "ejs");
 stores.use("/public", express.static("public"));
 stores.use(bodyParser.urlencoded({ extended: true }));
 
+stores.get("/signin", (req, res) => {
+  res.render("signIn", {errorMessage:''});
+});
+
+stores.get("/signup", (req, res) => {
+  res.render("signUp");
+});
+
 stores.get("/", (req, res) => {
-  res.render("signin",{errorMessage:''});
+  res.render("signIn",{errorMessage:''});
 });
 
 stores.get("/dashboard", (req, res) => {
@@ -74,15 +82,6 @@ stores.get("/dashboard", (req, res) => {
 stores.get("/main", (req, res) => {
    res.render("panel");
 });
-
-stores.get("/signup", (req, res) => {
-  res.render("signUp");
-});
-
-stores.get("/signin", (req, res) => {
-  res.render("signIn", {errorMessage:''});
-});
-
 
 stores.get("/Register", (req, res) => {
   res.render('FamilyPlanning', {Data: '' })
@@ -162,7 +161,7 @@ stores.post('/Account',(req,res)=>{
       res.sendStatus(500);
       return;
     }else{
-      res.redirect('/signin')
+      res.redirect('/signIn')
     }
   })
 })
