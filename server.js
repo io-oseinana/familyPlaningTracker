@@ -58,7 +58,7 @@ import { Facility, Message, SenderID, Contact, key} from "./send.js";
 
 config();
 const stores = express();
-const port ='3000';
+const port =3000;
 stores.set("view engine", "ejs");
 stores.use("/public", express.static("public"));
 stores.use(bodyParser.urlencoded({ extended: true }));
