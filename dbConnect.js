@@ -3,7 +3,7 @@ import { config } from 'dotenv'
 config()
  export const dbconnect=mysql.createConnection({
         host:"familyplanning.cbg4o5mtlacu.us-east-1.rds.amazonaws.com",
-        user:"admin,
+        user:"admin",
         password:"ma5t3rpass",
         database :"familyplanning",
         multipleStatements: true
